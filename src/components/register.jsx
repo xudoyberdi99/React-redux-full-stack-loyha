@@ -1,6 +1,6 @@
 import icon from '../Logo/LogoDesktop.png'
 import { Input } from '../ui'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { signUserFailure, signUserStart, signUserSuccess } from '../slice/auth'
 import AuthService from '../service/auth'
@@ -12,7 +12,7 @@ const Register = () => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const dispatch = useDispatch()
-	const { isLoading } = useSelector(state => state.auth)
+	const { isLoading,loggedIn } = useSelector(state => state.auth)
 	const navigate = useNavigate()
 
 	const registerHandler = async e => {
@@ -27,6 +27,12 @@ const Register = () => {
 			dispatch(signUserFailure(error.response.data.errors))
 		}
 	}
+
+	useEffect(() => {
+		if (loggedIn) {
+			navigate('/')
+		}
+	}, [loggedIn])
 
 	return (
 		<div className='text-center'>
