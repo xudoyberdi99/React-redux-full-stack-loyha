@@ -1,4 +1,3 @@
-
 function Input({label,type,state,setState}) {
 	 const id = `input-${label.replace(/\s+/g, '').toLowerCase()}`; 
 	 
